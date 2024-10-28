@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">StarWarsDocs</string>
+    <string name="title">StartWars Docs</string>
+    <string name="emptyList">No se han encontrado personajes</string>
+</resources>
