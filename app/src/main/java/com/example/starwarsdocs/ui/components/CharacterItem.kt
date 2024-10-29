@@ -25,7 +25,8 @@ fun CharacterItem(navController: NavController, viewModel: SharedViewModel, char
     ){
         Column(
             modifier = Modifier
-                .padding(start = 16.dp)
+                .padding(end = 16.dp)
+                .fillMaxWidth()
                 .wrapContentSize()
                 .clickable {
                     Log.d("com.example.starwardocs", "SelectedCharacter(CharacterItem): $character")

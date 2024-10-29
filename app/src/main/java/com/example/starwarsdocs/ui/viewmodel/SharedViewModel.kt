@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.starwarsdocs.domain.mappers.MainMapper.toData
+import com.example.starwarsdocs.domain.mappers.MainMapper.toDataModel
 import com.example.starwarsdocs.domain.mappers.MainMapper.toDomain
 import com.example.starwarsdocs.domain.models.PeopleDomain
 import com.example.starwarsdocs.domain.models.PlanetsDomain
@@ -16,6 +17,8 @@ import com.example.starwarsdocs.domain.useCase.GetAllLocalDataUseCase
 import com.example.starwarsdocs.domain.useCase.GetAllPlanetsUseCase
 import com.example.starwarsdocs.domain.useCase.GetAllStarShipUseCase
 import com.example.starwarsdocs.domain.useCase.InsertLocalCharacterUseCase
+import com.example.starwarsdocs.domain.useCase.InsertLocalPlanetUseCase
+import com.example.starwarsdocs.domain.useCase.InsertLocalStarshipUseCase
 import com.example.starwarsdocs.ui.navigation.Screen
 import com.example.starwarsdocs.util.WrapperResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -47,6 +50,12 @@ class SharedViewModel @Inject constructor(
     @Inject
     lateinit var getAllStarShipUseCase: GetAllStarShipUseCase
 
+    @Inject
+    lateinit var insertLocalPlanetUseCase: InsertLocalPlanetUseCase
+
+    @Inject
+    lateinit var insertLocalStarshipUseCase: InsertLocalStarshipUseCase
+
     private val _showLoading: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val showLoading: StateFlow<Boolean> = _showLoading.asStateFlow()
 
@@ -55,9 +64,6 @@ class SharedViewModel @Inject constructor(
 
     private val _messageError: MutableStateFlow<String> = MutableStateFlow("")
     val message: StateFlow<String> = _messageError.asStateFlow()
-
-    private val _allCharacters: MutableStateFlow<List<PeopleDomain>?> = MutableStateFlow(null)
-    val allCharacters: StateFlow<List<PeopleDomain>?> = _allCharacters.asStateFlow()
 
     private val _allLocalCharacters: MutableStateFlow<List<PeopleDomain>?> = MutableStateFlow(null)
     val allLocalCharacters: StateFlow<List<PeopleDomain>?> = _allLocalCharacters.asStateFlow()
@@ -89,7 +95,6 @@ class SharedViewModel @Inject constructor(
                 is WrapperResponse.Success -> {
                     endReached.value = curPage * 10 >= 82
                     curPage++
-                    _allCharacters.value = resp.data
                     resp.data?.map {
                         insertLocalCharacter(it)
                     }
@@ -114,7 +119,9 @@ class SharedViewModel @Inject constructor(
                     endReached.value = curPage * 10 >= 82
                     curPage++
                     _allPlanets.value = resp.data
-                    //TODO: Keep in local
+                    resp.data?.map {
+                        insertLocalPlanet(it)
+                    }
                     _showLoading.value = false
                 }
 
@@ -127,6 +134,8 @@ class SharedViewModel @Inject constructor(
         }
     }
 
+
+
     fun getAllStarships() {
         viewModelScope.launch(Dispatchers.IO) {
             _showLoading.value = true
@@ -135,6 +144,10 @@ class SharedViewModel @Inject constructor(
                     endReached.value = curPage * 10 >= 82
                     curPage++
                     _allStarShips.value = resp.data
+                    //TODO: Keep in local
+                    resp.data?.map {
+                        insertLocalStarShip(it)
+                    }
                     _showLoading.value = false
                 }
                 is WrapperResponse.Error -> {
@@ -151,7 +164,7 @@ class SharedViewModel @Inject constructor(
             _showLoading.value = true
             when (val resp = getAllLocalDataUseCase.getAllLocalCharacter()) {
                 is WrapperResponse.Success -> {
-                    _allCharacters.value = resp.data?.map {
+                    _allLocalCharacters.value = resp.data?.map {
                         it.toDomain()
                     }
                     _showLoading.value = false
@@ -175,6 +188,38 @@ class SharedViewModel @Inject constructor(
                     _showLoading.value = false
                 }
 
+                is WrapperResponse.Error -> {
+                    _showLoading.value = false
+                    _showDialog.value = true
+                    _messageError.value = resp.message ?: "Se ha producido un error"
+                }
+            }
+        }
+    }
+
+    private fun insertLocalPlanet(planet: PlanetsDomain) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _showLoading.value = true
+            when(val resp = insertLocalPlanetUseCase.insertPlanet(planet.toDataModel())){
+                is WrapperResponse.Success -> {
+                    _showLoading.value = false
+                }
+                is WrapperResponse.Error -> {
+                    _showLoading.value = false
+                    _showDialog.value = true
+                    _messageError.value = resp.message ?: "Se ha producido un error"
+                }
+            }
+        }
+    }
+
+    private fun insertLocalStarShip(starShip: StarShipDomain){
+        viewModelScope.launch(Dispatchers.IO) {
+            _showLoading.value = true
+            when(val resp = insertLocalStarshipUseCase.insertStarship(starShip.toDataModel())){
+                is WrapperResponse.Success -> {
+                    _showLoading.value = false
+                }
                 is WrapperResponse.Error -> {
                     _showLoading.value = false
                     _showDialog.value = true

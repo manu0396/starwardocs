@@ -21,12 +21,11 @@ import com.example.starwarsdocs.ui.viewmodel.SharedViewModel
 
 @Composable
 fun StarShipItem (navController: NavController, viewModel: SharedViewModel, character: StarShipDomain) {
-    Row(
-    modifier = Modifier.fillMaxWidth()
-    ){
+    Row{
         Column(
             modifier = Modifier
-                .padding(start = 16.dp)
+                .padding(end = 16.dp)
+                .fillMaxWidth()
                 .wrapContentSize()
                 .clickable {
                     Log.d("com.example.starwardocs", "SelectedCharacter(CharacterItem): $character")

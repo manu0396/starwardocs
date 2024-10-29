@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.example.starwardocs.BuildConfig
 import com.example.starwarsdocs.data.local.LocalDatabase
 import com.example.starwarsdocs.data.local.StarWarsDao
+import com.example.starwarsdocs.data.local.migrations.Migrations
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,7 +24,9 @@ class LocalModule {
             context.applicationContext,
             LocalDatabase::class.java,
             BuildConfig.DB_NAME
-        ).build()
+        )
+        .addMigrations(Migrations.MIGRATION_1_2)
+        .build()
     }
 
     @Provides

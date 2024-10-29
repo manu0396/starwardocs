@@ -39,6 +39,8 @@ android {
         buildConfigField("String", "BASE_URL", "\"https://swapi.dev/api/\"")
         buildConfigField("String", "DB_NAME", "\"DB_NAME\"")
         buildConfigField("String", "DB_PEOPLE_NAME", "\"DB_PEOPLE_NAME\"")
+        buildConfigField("String", "DB_PLANET_NAME", "\"DB_PLANET_NAME\"")
+        buildConfigField("String", "DB_STARSHIP_NAME", "\"DB_STARSHIP_NAME\"")
     }
 
     signingConfigs {
