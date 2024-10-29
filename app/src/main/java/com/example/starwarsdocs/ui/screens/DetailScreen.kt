@@ -67,18 +67,14 @@ fun DetailScreen(context: Context, navController: NavController, sharedViewModel
             horizontalAlignment = Alignment.Start // Align text to start
         ) {
             if(selectedCharacter != null || selectPlanet != null || selectStarship != null){
-                item {
-                    // Display name as the header
-                    Text(
-                        text = selectedCharacter?.name ?: selectPlanet?.name ?: selectStarship?.name ?: "",
-                        style = MaterialTheme.typography.bodySmall,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(bottom = 16.dp)
-                    )
-                }
-
                 // Individual characteristic items
                 if (selectedCharacter != null) {
+                    item {
+                        DetailItem(
+                            label = "Name",
+                            value = selectedCharacter?.name ?: ""
+                        )
+                    }
                     item {
                         DetailItem(
                             label = "Birth Year",
@@ -142,6 +138,12 @@ fun DetailScreen(context: Context, navController: NavController, sharedViewModel
                     //Planets details
                     item {
                         DetailItem(
+                            label = "Name",
+                            value = selectPlanet?.name ?: ""
+                        )
+                    }
+                    item {
+                        DetailItem(
                             label = "Edited",
                             value = selectPlanet?.edited ?: ""
                         )
@@ -195,7 +197,6 @@ fun DetailScreen(context: Context, navController: NavController, sharedViewModel
                     }
                 }else if(selectStarship != null){
                     //StarshipsDetails
-                    //TODO:
                     item {
                         DetailItem(
                             label = "Name",

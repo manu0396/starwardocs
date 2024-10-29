@@ -144,7 +144,6 @@ class SharedViewModel @Inject constructor(
                     endReached.value = curPage * 10 >= 82
                     curPage++
                     _allStarShips.value = resp.data
-                    //TODO: Keep in local
                     resp.data?.map {
                         insertLocalStarShip(it)
                     }
