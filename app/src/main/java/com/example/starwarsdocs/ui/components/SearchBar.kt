@@ -22,7 +22,7 @@ fun SearchBar(query: String, onQueryChanged: (String) -> Unit) {
             Box {
                 if (query.isEmpty()) {
                     Text(
-                        text = "Search Characters...",
+                        text = "Search ...",
                         style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
