@@ -2,7 +2,6 @@ package com.example.starwarsdocs.ui.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
@@ -16,15 +15,17 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.starwarsdocs.domain.models.PeopleDomain
+import com.example.starwarsdocs.domain.models.PlanetsDomain
+import com.example.starwarsdocs.domain.models.StarShipDomain
 import com.example.starwarsdocs.ui.viewmodel.SharedViewModel
 
 @Composable
-fun CharacterList(navController: NavController, viewModel: SharedViewModel, characters: List<PeopleDomain>) {
+fun CharacterList(navController: NavController, viewModel: SharedViewModel, items: List<Any>) {
     Box(
         contentAlignment = Alignment.TopCenter,
         modifier = Modifier.fillMaxSize()
     ) {
-        if (characters.isEmpty()) {
+        if (items.isEmpty()) {
             Text(text = "No characters found", style = MaterialTheme.typography.bodyLarge)
         } else {
             LazyColumn(
@@ -32,8 +33,20 @@ fun CharacterList(navController: NavController, viewModel: SharedViewModel, char
                     .verticalScroll(rememberScrollState()) // Adding scroll behavior
                     .size(LocalConfiguration.current.screenHeightDp.dp)
             ) {
-                items(characters.size) { character ->
-                    CharacterItem(navController = navController, viewModel = viewModel, character = characters[character])
+                items(items.size) { index ->
+                    when(items[index]){
+                        is PeopleDomain -> {
+                            CharacterItem(navController = navController, viewModel = viewModel, character = items[index] as PeopleDomain)
+                        }
+
+                        is StarShipDomain -> {
+                            StarShipItem(navController = navController, viewModel = viewModel, character = items[index] as StarShipDomain)
+                        }
+
+                        is PlanetsDomain -> {
+                            PlanetsItem(navController = navController, viewModel = viewModel, character = items[index] as PlanetsDomain)
+                        }
+                    }
                 }
             }
         }

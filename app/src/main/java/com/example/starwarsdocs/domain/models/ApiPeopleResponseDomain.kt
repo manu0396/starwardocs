@@ -5,6 +5,6 @@ import com.example.starwarsdocs.data.remote.models.People
 data class ApiPeopleResponseDomain(
     val count: Int,
     val next: String,
-    val previous: PeopleDomain,
+    val previous: String?,
     val results: List<PeopleDomain>
 )

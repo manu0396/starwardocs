@@ -16,12 +16,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.starwarsdocs.domain.models.PeopleDomain
+import com.example.starwarsdocs.domain.models.StarShipDomain
 import com.example.starwarsdocs.ui.viewmodel.SharedViewModel
 
 @Composable
-fun CharacterItem(navController: NavController, viewModel: SharedViewModel, character: PeopleDomain) {
+fun StarShipItem (navController: NavController, viewModel: SharedViewModel, character: StarShipDomain) {
     Row(
-        modifier = Modifier.fillMaxWidth()
+    modifier = Modifier.fillMaxWidth()
     ){
         Column(
             modifier = Modifier
@@ -29,13 +30,13 @@ fun CharacterItem(navController: NavController, viewModel: SharedViewModel, char
                 .wrapContentSize()
                 .clickable {
                     Log.d("com.example.starwardocs", "SelectedCharacter(CharacterItem): $character")
-                    viewModel.navigateToDetailCharacter(navController, character)
+                    viewModel.navigateToDetailStarShip(navController, character)
                 },
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(text = "name: " + character.name)
             Text(text = "url: " + character.url)
-            Text(text = "homeworld: " + character.homeworld)
+            Text(text = "startship_class: " + character.startship_class)
             Spacer(modifier = Modifier.size(50.dp))
         }
     }

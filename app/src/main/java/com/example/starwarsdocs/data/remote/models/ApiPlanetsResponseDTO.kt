@@ -7,6 +7,6 @@ import kotlinx.serialization.Serializable
 class ApiPlanetsResponseDTO(
     @SerialName(value = "count") val count: Int,
     @SerialName(value = "next") val next: String,
-    @SerialName(value = "previous") val previous: Planets,
+    @SerialName(value = "previous") val previous: String?,
     @SerialName(value = "results") val results: List<Planets>
 )

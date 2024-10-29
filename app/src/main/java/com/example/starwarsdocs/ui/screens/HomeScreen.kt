@@ -11,11 +11,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.starwardocs.R
+import com.example.starwarsdocs.domain.models.PeopleDomain
+import com.example.starwarsdocs.domain.models.PlanetsDomain
+import com.example.starwarsdocs.domain.models.StarShipDomain
 import com.example.starwarsdocs.ui.components.CharacterList
 import com.example.starwarsdocs.ui.components.CustomDialog
 import com.example.starwarsdocs.ui.components.SearchBar
 import com.example.starwarsdocs.ui.viewmodel.SharedViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
+
+// Define the category types for navigation
+enum class CharacterCategory {
+    CHARACTERS, PLANETS, STARSHIPS
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -24,41 +31,99 @@ fun HomeScreen(
     sharedViewModel: SharedViewModel,
     context: Context
 ) {
-    // Get all characters from the ViewModel
-    val characters by sharedViewModel.allLocalCharacters.collectAsState()
+    LaunchedEffect(true) {
+        sharedViewModel.getAllCharacter()
+    }
+    // Local state for selected category
+    var selectedCategory by remember { mutableStateOf(CharacterCategory.CHARACTERS) }
 
-    val showLoading by sharedViewModel.showLoading.collectAsState()
-
-    val showDialog by sharedViewModel.showDialog.collectAsState()
-
-    val messageError by sharedViewModel.message.collectAsState()
-
-    // Local state to track the search query
-    var query by remember { mutableStateOf("") }
-
-    // Filtered list of characters based on the search query
-    val filteredCharacters = characters?.filter {
-        it.name.contains(query, ignoreCase = true)
+    // Get characters from the ViewModel based on the selected category
+    val characters by when (selectedCategory) {
+        CharacterCategory.CHARACTERS -> sharedViewModel.allLocalCharacters.collectAsState()
+        CharacterCategory.PLANETS -> sharedViewModel.allPlanets.collectAsState()
+        CharacterCategory.STARSHIPS -> sharedViewModel.allStarShips.collectAsState()
     }
 
-    // Trigger fetching all characters once on launch
-    LaunchedEffect(Unit) {
-        sharedViewModel.getAllCharacter()
+    val showLoading by sharedViewModel.showLoading.collectAsState()
+    val showDialog by sharedViewModel.showDialog.collectAsState()
+    val messageError by sharedViewModel.message.collectAsState()
+
+    var query by remember { mutableStateOf("") }
+
+    val filteredCharacters = when (selectedCategory) {
+        CharacterCategory.CHARACTERS -> characters?.filter {
+            (it as PeopleDomain).name.contains(query, ignoreCase = true)
+        }
+
+        CharacterCategory.PLANETS -> characters?.filter {
+            (it as PlanetsDomain).name.contains(query, ignoreCase = true)
+        }
+
+        CharacterCategory.STARSHIPS -> characters?.filter {
+            (it as StarShipDomain).name.contains(query, ignoreCase = true)
+        }
+    }
+
+    // Trigger fetching characters based on the category
+    LaunchedEffect(selectedCategory) {
+        when (selectedCategory) {
+            CharacterCategory.CHARACTERS -> sharedViewModel.getAllCharacter()
+            CharacterCategory.PLANETS -> sharedViewModel.getAllPlanets()
+            CharacterCategory.STARSHIPS -> sharedViewModel.getAllStarships()
+        }
     }
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(context.getString(R.string.title)) },
-                navigationIcon = { Icon(
-                    painter = painterResource(R.drawable.baseline_arrow_back_24),
-                    contentDescription = "arrow_back",
-                    modifier = Modifier.clickable { navController.popBackStack() }
+                navigationIcon = {
+                    Icon(
+                        painter = painterResource(R.drawable.baseline_arrow_back_24),
+                        contentDescription = "arrow_back",
+                        modifier = Modifier.clickable { navController.popBackStack() }
                     )
                 }
             )
         },
-        contentWindowInsets = WindowInsets(16.dp)
+        contentWindowInsets = WindowInsets(16.dp),
+        bottomBar = {
+            BottomAppBar(
+                actions = {
+                    Box(
+                        modifier = Modifier.fillMaxWidth(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Row(horizontalArrangement = Arrangement.SpaceBetween) {
+                            IconButton(onClick = {
+                                selectedCategory = CharacterCategory.CHARACTERS
+                            }) {
+                                Icon(
+                                    painter = painterResource(R.drawable.baseline_people_24),
+                                    contentDescription = "People"
+                                )
+                            }
+                            Spacer(modifier = Modifier.width(64.dp))
+                            IconButton(onClick = { selectedCategory = CharacterCategory.PLANETS }) {
+                                Icon(
+                                    painter = painterResource(R.drawable.baseline_place_24),
+                                    contentDescription = "Planets"
+                                )
+                            }
+                            Spacer(modifier = Modifier.width(64.dp))
+                            IconButton(onClick = {
+                                selectedCategory = CharacterCategory.STARSHIPS
+                            }) {
+                                Icon(
+                                    painter = painterResource(R.drawable.baseline_airplanemode_active_24),
+                                    contentDescription = "Starships"
+                                )
+                            }
+                        }
+                    }
+                },
+            )
+        }
     ) { contentPadding ->
         if (showLoading) {
             Box(
@@ -83,14 +148,14 @@ fun HomeScreen(
                 .fillMaxSize()
                 .padding(contentPadding)
         ) {
-            // Search bar to update the query
             SearchBar(query = query, onQueryChanged = { query = it })
-
             Spacer(modifier = Modifier.height(16.dp))
-
-            // Character list showing the filtered characters
             if (filteredCharacters != null) {
-                CharacterList(navController = navController, viewModel = sharedViewModel, characters = filteredCharacters)
+                CharacterList(
+                    navController = navController,
+                    viewModel = sharedViewModel,
+                    items = filteredCharacters
+                )
             } else {
                 Text(text = context.getString(R.string.emptyList))
             }
