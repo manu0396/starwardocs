@@ -27,7 +27,6 @@ fun PlanetsItem(navController: NavController, viewModel: SharedViewModel, charac
                 .fillMaxWidth()
                 .wrapContentSize()
                 .clickable {
-                    Log.d("com.example.starwardocs", "SelectedCharacter(CharacterItem): $character")
                     viewModel.navigateToDetailPlanet(navController, character)
                 },
             horizontalAlignment = Alignment.CenterHorizontally

@@ -29,7 +29,6 @@ fun CharacterItem(navController: NavController, viewModel: SharedViewModel, char
                 .fillMaxWidth()
                 .wrapContentSize()
                 .clickable {
-                    Log.d("com.example.starwardocs", "SelectedCharacter(CharacterItem): $character")
                     viewModel.navigateToDetailCharacter(navController, character)
                 },
             horizontalAlignment = Alignment.CenterHorizontally

@@ -28,7 +28,6 @@ fun StarShipItem (navController: NavController, viewModel: SharedViewModel, char
                 .fillMaxWidth()
                 .wrapContentSize()
                 .clickable {
-                    Log.d("com.example.starwardocs", "SelectedCharacter(CharacterItem): $character")
                     viewModel.navigateToDetailStarShip(navController, character)
                 },
             horizontalAlignment = Alignment.CenterHorizontally
