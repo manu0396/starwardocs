@@ -9,6 +9,7 @@ import androidx.navigation.NavController
 import com.example.starwarsdocs.domain.mappers.MainMapper.toData
 import com.example.starwarsdocs.domain.mappers.MainMapper.toDataModel
 import com.example.starwarsdocs.domain.mappers.MainMapper.toDomain
+import com.example.starwarsdocs.domain.mappers.MainMapper.toDomainModel
 import com.example.starwarsdocs.domain.models.PeopleDomain
 import com.example.starwarsdocs.domain.models.PlanetsDomain
 import com.example.starwarsdocs.domain.models.StarShipDomain
@@ -118,10 +119,10 @@ class SharedViewModel @Inject constructor(
                 is WrapperResponse.Success -> {
                     endReached.value = curPage * 10 >= 82
                     curPage++
-                    _allPlanets.value = resp.data
                     resp.data?.map {
                         insertLocalPlanet(it)
                     }
+                    getLocalPlanets()
                     _showLoading.value = false
                 }
 
@@ -136,6 +137,7 @@ class SharedViewModel @Inject constructor(
 
 
 
+
     fun getAllStarships() {
         viewModelScope.launch(Dispatchers.IO) {
             _showLoading.value = true
@@ -143,9 +145,46 @@ class SharedViewModel @Inject constructor(
                 is WrapperResponse.Success -> {
                     endReached.value = curPage * 10 >= 82
                     curPage++
-                    _allStarShips.value = resp.data
                     resp.data?.map {
                         insertLocalStarShip(it)
+                    }
+                    getLocalStarships()
+                    _showLoading.value = false
+                }
+                is WrapperResponse.Error -> {
+                    _showLoading.value = false
+                    _showDialog.value = true
+                    _messageError.value = resp.message ?: "Se ha producido un error"
+                }
+            }
+        }
+    }
+
+    private fun getLocalPlanets() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _showLoading.value = true
+            when(val resp = getAllLocalDataUseCase.getAllLocalPlanets()){
+                is WrapperResponse.Success -> {
+                    _allPlanets.value = resp.data?.map {
+                        it.toDomainModel()
+                    }
+                }
+                is WrapperResponse.Error -> {
+                    _showLoading.value = false
+                    _showDialog.value = true
+                    _messageError.value = resp.message ?: "Se ha producido un error"
+                }
+            }
+        }
+    }
+
+    private fun getLocalStarships() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _showLoading.value = true
+            when(val resp = getAllLocalDataUseCase.getAllLocalStarships()){
+                is WrapperResponse.Success -> {
+                    _allStarShips.value = resp.data?.map {
+                        it.toDomainModel()
                     }
                     _showLoading.value = false
                 }
