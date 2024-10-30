@@ -32,7 +32,7 @@ fun PlanetsItem(navController: NavController, viewModel: SharedViewModel, charac
         ),
         border = BorderStroke(width = 1.dp, color = Color.LightGray),
         modifier = Modifier
-            .padding(end = 16.dp)
+            .padding(bottom = 16.dp, end = 16.dp)
             .fillMaxWidth()
     ){
         Column(

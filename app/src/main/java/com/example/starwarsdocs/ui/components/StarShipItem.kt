@@ -33,7 +33,7 @@ fun StarShipItem (navController: NavController, viewModel: SharedViewModel, char
         ),
         border = BorderStroke(width = 1.dp, color = Color.LightGray),
         modifier = Modifier
-            .padding(end = 16.dp)
+            .padding(bottom = 16.dp, end = 16.dp)
             .fillMaxWidth()
     ){
         Column(
