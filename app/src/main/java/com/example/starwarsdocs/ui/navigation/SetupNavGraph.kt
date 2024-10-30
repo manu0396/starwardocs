@@ -3,16 +3,12 @@ package com.example.starwarsdocs.ui.navigation
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigation
-import androidx.navigation.navArgument
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.starwarsdocs.ui.screens.DetailScreen
 import com.example.starwarsdocs.ui.screens.HomeScreen
 import com.example.starwarsdocs.ui.viewmodel.SharedViewModel
