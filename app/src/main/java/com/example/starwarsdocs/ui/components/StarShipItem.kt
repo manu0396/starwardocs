@@ -1,5 +1,8 @@
 package com.example.starwarsdocs.ui.components
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -21,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.starwarsdocs.domain.models.StarShipDomain
 import com.example.starwarsdocs.ui.viewmodel.SharedViewModel
+
 
 @Composable
 fun StarShipItem (navController: NavController, viewModel: SharedViewModel, character: StarShipDomain) {

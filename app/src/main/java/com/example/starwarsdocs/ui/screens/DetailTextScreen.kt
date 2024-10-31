@@ -1,52 +1,53 @@
-package com.example.starwarsdocs.ui.components
+package com.example.starwarsdocs.ui.screens
 
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.layout.paddingFromBaseline
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.DetailItem(label: String, text: String, animatedVisibilityScope: AnimatedVisibilityScope, modifier: Modifier? = null, onItemClick: ((String, String) -> Unit)? = null) {
+fun SharedTransitionScope.DetailTextScreen(
+    label: String,
+    text: String,
+    animatedVisibilityScope: AnimatedVisibilityScope
+) {
     Row(
-        modifier = modifier ?: Modifier
-            .clickable {
-                if (onItemClick != null) {
-                    onItemClick(label, text)
-                }
-            }
-            .fillMaxWidth()
-            .padding(vertical = 4.dp)
+        modifier = Modifier
+            .fillMaxSize(),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
+
     ) {
-        // Label text
         Text(
-            text = "$label: ",
-            style = MaterialTheme.typography.bodyLarge,
-            fontWeight = FontWeight.Bold,
+            text = label,
             modifier = Modifier
                 .sharedElement(
-                    state = rememberSharedContentState(key = "text/$label"),
+                    state = rememberSharedContentState(key = "label/$label"),
                     animatedVisibilityScope = animatedVisibilityScope,
                     boundsTransform = { _, _ ->
                         tween(durationMillis = 1000)
                     }
                 )
-                .weight(1f) // Use weight to balance layout
         )
-        // Value text
+        Spacer(modifier = Modifier.width(16.dp))
         Text(
             text = text,
-            style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier
                 .sharedElement(
                     state = rememberSharedContentState(key = "text/$text"),
@@ -55,7 +56,6 @@ fun SharedTransitionScope.DetailItem(label: String, text: String, animatedVisibi
                         tween(durationMillis = 1000)
                     }
                 )
-                .weight(1f)
         )
     }
 }

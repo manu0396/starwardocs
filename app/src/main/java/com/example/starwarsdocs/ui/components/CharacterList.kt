@@ -1,5 +1,8 @@
 package com.example.starwarsdocs.ui.components
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
@@ -18,6 +21,7 @@ import com.example.starwarsdocs.domain.models.PeopleDomain
 import com.example.starwarsdocs.domain.models.PlanetsDomain
 import com.example.starwarsdocs.domain.models.StarShipDomain
 import com.example.starwarsdocs.ui.viewmodel.SharedViewModel
+
 
 @Composable
 fun CharacterList(navController: NavController, viewModel: SharedViewModel, items: List<Any>) {

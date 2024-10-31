@@ -2,6 +2,10 @@ package com.example.starwarsdocs.ui.screens
 
 import android.content.Context
 import android.util.Log
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -29,9 +33,15 @@ import com.example.starwardocs.R
 import com.example.starwarsdocs.ui.components.DetailItem
 import com.example.starwarsdocs.ui.viewmodel.SharedViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
 @Composable
-fun DetailScreen(context: Context, navController: NavController, sharedViewModel: SharedViewModel) {
+fun SharedTransitionScope.DetailScreen(
+    context: Context,
+    navController: NavController,
+    sharedViewModel: SharedViewModel,
+    animatedVisibilityScope: AnimatedVisibilityScope,
+    onItemClick: (String, String) -> Unit
+) {
 
     val selectedCharacter by sharedViewModel.selectedCharacter.collectAsState()
     val selectPlanet by sharedViewModel.selectedPlanet.collectAsState()
@@ -67,66 +77,112 @@ fun DetailScreen(context: Context, navController: NavController, sharedViewModel
                 item {
                     DetailItem(
                         label = "Name",
-                        value = selectedCharacter?.name ?: ""
+                        text = selectedCharacter?.name ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
                     )
                 }
                 item {
                     DetailItem(
                         label = "Birth Year",
-                        value = selectedCharacter?.birth_year ?: ""
+                        text = selectedCharacter?.birth_year ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
                     )
                 }
-                item { DetailItem(label = "Created", value = selectedCharacter?.created ?: "") }
-                item { DetailItem(label = "Edited", value = selectedCharacter?.edited ?: "") }
+                item {
+                    DetailItem(
+                        label = "Created", text = selectedCharacter?.created ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
+                    )
+                }
+                item {
+                    DetailItem(
+                        label = "Edited", text = selectedCharacter?.edited ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
+                    )
+                }
                 item {
                     DetailItem(
                         label = "Eye Color",
-                        value = selectedCharacter?.eye_color ?: ""
+                        text = selectedCharacter?.eye_color ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
                     )
                 }
                 item {
                     DetailItem(
                         label = "Films",
-                        value = selectedCharacter?.films?.joinToString(", ") ?: ""
+                        text = selectedCharacter?.films?.joinToString(", ") ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope
                     )
                 }
-                item { DetailItem(label = "Gender", value = selectedCharacter?.gender ?: "") }
+                item {
+                    DetailItem(
+                        label = "Gender", text = selectedCharacter?.gender ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
+                    )
+                }
                 item {
                     DetailItem(
                         label = "Hair Color",
-                        value = selectedCharacter?.hair_color ?: ""
+                        text = selectedCharacter?.hair_color ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
                     )
                 }
-                item { DetailItem(label = "Height", value = selectedCharacter?.height ?: "") }
+                item {
+                    DetailItem(
+                        label = "Height", text = selectedCharacter?.height ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
+                    )
+                }
                 item {
                     DetailItem(
                         label = "Homeworld",
-                        value = selectedCharacter?.homeworld ?: ""
+                        text = selectedCharacter?.homeworld ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
                     )
                 }
-                item { DetailItem(label = "Mass", value = selectedCharacter?.mass ?: "") }
+                item {
+                    DetailItem(
+                        label = "Mass", text = selectedCharacter?.mass ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
+                    )
+                }
                 item {
                     DetailItem(
                         label = "Skin Color",
-                        value = selectedCharacter?.skin_color ?: ""
+                        text = selectedCharacter?.skin_color ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
                     )
                 }
                 item {
                     DetailItem(
                         label = "Species",
-                        value = selectedCharacter?.species?.joinToString(", ") ?: ""
+                        text = selectedCharacter?.species?.joinToString(", ") ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
                     )
                 }
                 item {
                     DetailItem(
                         label = "Starships",
-                        value = selectedCharacter?.starships?.joinToString(", ") ?: ""
+                        text = selectedCharacter?.starships?.joinToString(", ") ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope
                     )
                 }
                 item {
                     DetailItem(
                         label = "Vehicles",
-                        value = selectedCharacter?.vehicles?.joinToString(", ") ?: ""
+                        text = selectedCharacter?.vehicles?.joinToString(", ") ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope
                     )
                 }
             } else if (selectPlanet != null) {
@@ -134,70 +190,108 @@ fun DetailScreen(context: Context, navController: NavController, sharedViewModel
                 item {
                     DetailItem(
                         label = "Name",
-                        value = selectPlanet?.name ?: ""
+                        text = selectPlanet?.name ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
                     )
                 }
                 item {
                     DetailItem(
                         label = "Edited",
-                        value = selectPlanet?.edited ?: ""
+                        text = selectPlanet?.edited ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
                     )
                 }
-                item { DetailItem(label = "Created", value = selectPlanet?.create ?: "") }
-                item { DetailItem(label = "Url", value = selectPlanet?.url ?: "") }
+                item {
+                    DetailItem(
+                        label = "Created", text = selectPlanet?.create ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
+                    )
+                }
+                item {
+                    DetailItem(
+                        label = "Url", text = selectPlanet?.url ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
+                    )
+                }
                 item {
                     DetailItem(
                         label = "Climate",
-                        value = selectPlanet?.climate ?: ""
+                        text = selectPlanet?.climate ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
                     )
                 }
                 item {
                     DetailItem(
                         label = "Films",
-                        value = selectPlanet?.films?.joinToString(", ") ?: ""
+                        text = selectPlanet?.films?.joinToString(", ") ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope
                     )
                 }
-                item { DetailItem(label = "Diameter", value = selectPlanet?.diameter ?: "") }
+                item {
+                    DetailItem(
+                        label = "Diameter", text = selectPlanet?.diameter ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
+                    )
+                }
                 item {
                     DetailItem(
                         label = "Gravity",
-                        value = selectPlanet?.gravity ?: ""
+                        text = selectPlanet?.gravity ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
                     )
                 }
                 item {
                     DetailItem(
                         label = "Orbital period",
-                        value = selectPlanet?.orbital_period ?: ""
+                        text = selectPlanet?.orbital_period ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
                     )
                 }
                 item {
                     DetailItem(
                         label = "Population",
-                        value = selectPlanet?.population ?: ""
+                        text = selectPlanet?.population ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
                     )
                 }
                 item {
                     DetailItem(
                         label = "Rotation period",
-                        value = selectPlanet?.rotation_period ?: ""
+                        text = selectPlanet?.rotation_period ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
                     )
                 }
                 item {
                     DetailItem(
                         label = "Surface Water",
-                        value = selectPlanet?.surface_water ?: ""
+                        text = selectPlanet?.surface_water ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
                     )
                 }
                 item {
                     DetailItem(
                         label = "Residents",
-                        value = selectPlanet?.residents?.joinToString(", ") ?: ""
+                        text = selectPlanet?.residents?.joinToString(", ") ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
                     )
                 }
                 item {
                     DetailItem(
                         label = "Terrain",
-                        value = selectPlanet?.terrain ?: ""
+                        text = selectPlanet?.terrain ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
                     )
                 }
             } else if (selectStarship != null) {
@@ -205,97 +299,129 @@ fun DetailScreen(context: Context, navController: NavController, sharedViewModel
                 item {
                     DetailItem(
                         label = "Name",
-                        value = selectStarship?.name ?: ""
+                        text = selectStarship?.name ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick
                     )
                 }
                 item {
                     DetailItem(
                         label = "Edited",
-                        value = selectStarship?.edited ?: ""
+                        text = selectStarship?.edited ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick
                     )
                 }
                 item {
                     DetailItem(
                         label = "URL",
-                        value = selectStarship?.url ?: ""
+                        text = selectStarship?.url ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick
                     )
                 }
                 item {
                     DetailItem(
                         label = "Created",
-                        value = selectStarship?.created ?: ""
+                        text = selectStarship?.created ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick
                     )
                 }
                 item {
                     DetailItem(
                         label = "MGLT",
-                        value = selectStarship?.MGLT ?: ""
+                        text = selectStarship?.MGLT ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick
                     )
                 }
                 item {
                     DetailItem(
                         label = "Cargo Capacity",
-                        value = selectStarship?.cargo_capacity ?: ""
+                        text = selectStarship?.cargo_capacity ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick
                     )
                 }
                 item {
                     DetailItem(
                         label = "Consumables",
-                        value = selectStarship?.consumables ?: ""
+                        text = selectStarship?.consumables ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick
                     )
                 }
                 item {
                     DetailItem(
                         label = "Cost In Credits",
-                        value = selectStarship?.cost_in_credits ?: ""
+                        text = selectStarship?.cost_in_credits ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick
                     )
                 }
                 item {
                     DetailItem(
                         label = "Crew",
-                        value = selectStarship?.crew ?: ""
+                        text = selectStarship?.crew ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick
                     )
                 }
                 item {
                     DetailItem(
                         label = "Hyperdrive Rating",
-                        value = selectStarship?.hyperdrive_rating ?: ""
+                        text = selectStarship?.hyperdrive_rating ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick
                     )
                 }
                 item {
                     DetailItem(
                         label = "Lenght",
-                        value = selectStarship?.lenght ?: ""
+                        text = selectStarship?.lenght ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick
                     )
                 }
                 item {
                     DetailItem(
                         label = "Manufacturer",
-                        value = selectStarship?.manufacturer ?: ""
+                        text = selectStarship?.manufacturer ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick
                     )
                 }
                 item {
                     DetailItem(
                         label = "Max Atmosphering Speed",
-                        value = selectStarship?.max_atmosphering_speed ?: ""
+                        text = selectStarship?.max_atmosphering_speed ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick
                     )
                 }
                 item {
                     DetailItem(
                         label = "Passengers",
-                        value = selectStarship?.passengers ?: ""
+                        text = selectStarship?.passengers ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick
                     )
                 }
                 item {
                     DetailItem(
                         label = "Pilots",
-                        value = selectStarship?.pilots ?: ""
+                        text = selectStarship?.pilots ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick
                     )
                 }
                 item {
                     DetailItem(
                         label = "Starship Class",
-                        value = selectStarship?.startship_class ?: ""
+                        text = selectStarship?.startship_class ?: "",
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick
                     )
                 }
             } else {
