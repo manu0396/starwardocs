@@ -56,7 +56,9 @@ fun SetupNavGraph(context: Context, navController: NavHostController) {
                 DetailTextScreen(
                     label = label,
                     text = text,
-                    animatedVisibilityScope = this
+                    animatedVisibilityScope = this,
+                    navController = navController,
+                    context = context
                 )
             }
         }
