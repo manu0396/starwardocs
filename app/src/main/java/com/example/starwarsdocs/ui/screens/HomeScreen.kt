@@ -10,6 +10,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -103,14 +104,18 @@ fun HomeScreen(
                             }) {
                                 Icon(
                                     painter = painterResource(R.drawable.baseline_people_24),
-                                    contentDescription = "People"
+                                    contentDescription = "People",
+                                    tint = if (selectedCategory == CharacterCategory.CHARACTERS) Color.Blue else Color.Gray
                                 )
                             }
                             Spacer(modifier = Modifier.width(64.dp))
-                            IconButton(onClick = { selectedCategory = CharacterCategory.PLANETS }) {
+                            IconButton(onClick = {
+                                selectedCategory = CharacterCategory.PLANETS
+                            }) {
                                 Icon(
                                     painter = painterResource(R.drawable.baseline_place_24),
-                                    contentDescription = "Planets"
+                                    contentDescription = "Planets",
+                                    tint = if (selectedCategory == CharacterCategory.PLANETS) Color.Blue else Color.Gray
                                 )
                             }
                             Spacer(modifier = Modifier.width(64.dp))
@@ -119,7 +124,8 @@ fun HomeScreen(
                             }) {
                                 Icon(
                                     painter = painterResource(R.drawable.baseline_airplanemode_active_24),
-                                    contentDescription = "Starships"
+                                    contentDescription = "Starships",
+                                    tint = if (selectedCategory == CharacterCategory.STARSHIPS) Color.Blue else Color.Gray
                                 )
                             }
                         }
