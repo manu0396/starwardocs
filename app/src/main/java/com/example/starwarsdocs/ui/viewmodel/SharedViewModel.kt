@@ -311,5 +311,8 @@ class SharedViewModel @Inject constructor(
         navController.navigate(Screen.Detail.route)
     }
 
-
+    fun showDialog(error: String) {
+        _showDialog.value = true
+        _messageError.value = error
+    }
 }

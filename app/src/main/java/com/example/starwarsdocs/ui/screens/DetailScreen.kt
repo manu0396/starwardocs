@@ -80,6 +80,7 @@ fun SharedTransitionScope.DetailScreen(
                         text = selectedCharacter?.name ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
                         onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -88,6 +89,7 @@ fun SharedTransitionScope.DetailScreen(
                         text = selectedCharacter?.birth_year ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
                         onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -95,6 +97,7 @@ fun SharedTransitionScope.DetailScreen(
                         label = "Created", text = selectedCharacter?.created ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
                         onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -102,6 +105,7 @@ fun SharedTransitionScope.DetailScreen(
                         label = "Edited", text = selectedCharacter?.edited ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
                         onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -110,13 +114,16 @@ fun SharedTransitionScope.DetailScreen(
                         text = selectedCharacter?.eye_color ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
                         onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
                     DetailItem(
                         label = "Films",
                         text = selectedCharacter?.films?.joinToString(", ") ?: "",
-                        animatedVisibilityScope = animatedVisibilityScope
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -124,6 +131,7 @@ fun SharedTransitionScope.DetailScreen(
                         label = "Gender", text = selectedCharacter?.gender ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
                         onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -132,6 +140,7 @@ fun SharedTransitionScope.DetailScreen(
                         text = selectedCharacter?.hair_color ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
                         onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -139,6 +148,7 @@ fun SharedTransitionScope.DetailScreen(
                         label = "Height", text = selectedCharacter?.height ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
                         onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -147,6 +157,7 @@ fun SharedTransitionScope.DetailScreen(
                         text = selectedCharacter?.homeworld ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
                         onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -154,6 +165,7 @@ fun SharedTransitionScope.DetailScreen(
                         label = "Mass", text = selectedCharacter?.mass ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
                         onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -162,6 +174,7 @@ fun SharedTransitionScope.DetailScreen(
                         text = selectedCharacter?.skin_color ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
                         onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -169,20 +182,26 @@ fun SharedTransitionScope.DetailScreen(
                         label = "Species",
                         text = selectedCharacter?.species?.joinToString(", ") ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
                     DetailItem(
                         label = "Starships",
                         text = selectedCharacter?.starships?.joinToString(", ") ?: "",
-                        animatedVisibilityScope = animatedVisibilityScope
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
                     DetailItem(
                         label = "Vehicles",
                         text = selectedCharacter?.vehicles?.joinToString(", ") ?: "",
-                        animatedVisibilityScope = animatedVisibilityScope
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
             } else if (selectPlanet != null) {
@@ -193,6 +212,7 @@ fun SharedTransitionScope.DetailScreen(
                         text = selectPlanet?.name ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
                         onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -201,6 +221,7 @@ fun SharedTransitionScope.DetailScreen(
                         text = selectPlanet?.edited ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
                         onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -208,6 +229,7 @@ fun SharedTransitionScope.DetailScreen(
                         label = "Created", text = selectPlanet?.create ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
                         onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -215,6 +237,7 @@ fun SharedTransitionScope.DetailScreen(
                         label = "Url", text = selectPlanet?.url ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
                         onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -223,13 +246,16 @@ fun SharedTransitionScope.DetailScreen(
                         text = selectPlanet?.climate ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
                         onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
                     DetailItem(
                         label = "Films",
                         text = selectPlanet?.films?.joinToString(", ") ?: "",
-                        animatedVisibilityScope = animatedVisibilityScope
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -237,6 +263,7 @@ fun SharedTransitionScope.DetailScreen(
                         label = "Diameter", text = selectPlanet?.diameter ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
                         onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -245,6 +272,7 @@ fun SharedTransitionScope.DetailScreen(
                         text = selectPlanet?.gravity ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
                         onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -253,6 +281,7 @@ fun SharedTransitionScope.DetailScreen(
                         text = selectPlanet?.orbital_period ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
                         onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -261,6 +290,7 @@ fun SharedTransitionScope.DetailScreen(
                         text = selectPlanet?.population ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
                         onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -269,6 +299,7 @@ fun SharedTransitionScope.DetailScreen(
                         text = selectPlanet?.rotation_period ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
                         onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -277,6 +308,7 @@ fun SharedTransitionScope.DetailScreen(
                         text = selectPlanet?.surface_water ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
                         onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -284,6 +316,8 @@ fun SharedTransitionScope.DetailScreen(
                         label = "Residents",
                         text = selectPlanet?.residents?.joinToString(", ") ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
+                        onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -292,6 +326,7 @@ fun SharedTransitionScope.DetailScreen(
                         text = selectPlanet?.terrain ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
                         onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
             } else if (selectStarship != null) {
@@ -301,7 +336,8 @@ fun SharedTransitionScope.DetailScreen(
                         label = "Name",
                         text = selectStarship?.name ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
-                        onItemClick = onItemClick
+                        onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -309,7 +345,8 @@ fun SharedTransitionScope.DetailScreen(
                         label = "Edited",
                         text = selectStarship?.edited ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
-                        onItemClick = onItemClick
+                        onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -317,7 +354,8 @@ fun SharedTransitionScope.DetailScreen(
                         label = "URL",
                         text = selectStarship?.url ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
-                        onItemClick = onItemClick
+                        onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -325,7 +363,8 @@ fun SharedTransitionScope.DetailScreen(
                         label = "Created",
                         text = selectStarship?.created ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
-                        onItemClick = onItemClick
+                        onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -333,7 +372,8 @@ fun SharedTransitionScope.DetailScreen(
                         label = "MGLT",
                         text = selectStarship?.MGLT ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
-                        onItemClick = onItemClick
+                        onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -341,7 +381,8 @@ fun SharedTransitionScope.DetailScreen(
                         label = "Cargo Capacity",
                         text = selectStarship?.cargo_capacity ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
-                        onItemClick = onItemClick
+                        onItemClick = onItemClick,
+                        viewModel = sharedViewModel,
                     )
                 }
                 item {
@@ -349,7 +390,8 @@ fun SharedTransitionScope.DetailScreen(
                         label = "Consumables",
                         text = selectStarship?.consumables ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
-                        onItemClick = onItemClick
+                        onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -357,7 +399,8 @@ fun SharedTransitionScope.DetailScreen(
                         label = "Cost In Credits",
                         text = selectStarship?.cost_in_credits ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
-                        onItemClick = onItemClick
+                        onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -365,7 +408,8 @@ fun SharedTransitionScope.DetailScreen(
                         label = "Crew",
                         text = selectStarship?.crew ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
-                        onItemClick = onItemClick
+                        onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -373,7 +417,8 @@ fun SharedTransitionScope.DetailScreen(
                         label = "Hyperdrive Rating",
                         text = selectStarship?.hyperdrive_rating ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
-                        onItemClick = onItemClick
+                        onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -381,7 +426,8 @@ fun SharedTransitionScope.DetailScreen(
                         label = "Lenght",
                         text = selectStarship?.lenght ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
-                        onItemClick = onItemClick
+                        onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -389,7 +435,8 @@ fun SharedTransitionScope.DetailScreen(
                         label = "Manufacturer",
                         text = selectStarship?.manufacturer ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
-                        onItemClick = onItemClick
+                        onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -397,7 +444,8 @@ fun SharedTransitionScope.DetailScreen(
                         label = "Max Atmosphering Speed",
                         text = selectStarship?.max_atmosphering_speed ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
-                        onItemClick = onItemClick
+                        onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -405,7 +453,8 @@ fun SharedTransitionScope.DetailScreen(
                         label = "Passengers",
                         text = selectStarship?.passengers ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
-                        onItemClick = onItemClick
+                        onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -413,7 +462,8 @@ fun SharedTransitionScope.DetailScreen(
                         label = "Pilots",
                         text = selectStarship?.pilots ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
-                        onItemClick = onItemClick
+                        onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
                 item {
@@ -421,7 +471,8 @@ fun SharedTransitionScope.DetailScreen(
                         label = "Starship Class",
                         text = selectStarship?.startship_class ?: "",
                         animatedVisibilityScope = animatedVisibilityScope,
-                        onItemClick = onItemClick
+                        onItemClick = onItemClick,
+                        viewModel = sharedViewModel
                     )
                 }
             } else {
